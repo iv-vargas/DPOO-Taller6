@@ -57,7 +57,7 @@ public class PanelMapaAgregar extends JPanel implements MouseListener
         // Pinta un círculo rojo en la posición designada para el restaurante
         Graphics2D g2d = ( Graphics2D )g;
         g2d.setColor( Color.red );
-        g2d.fillOval( x - 3, y - 3, 7, 7 );
+        g2d.fillOval( labMapa.getX( ) + x - 3, labMapa.getY( ) + y - 3, 7, 7 );
     }
 
     @Override

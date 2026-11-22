@@ -3,6 +3,7 @@ package uniandes.dpoo.swing.interfaz.agregar;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import uniandes.dpoo.swing.interfaz.principal.VentanaPrincipal;
@@ -35,11 +36,19 @@ public class VentanaAgregarRestaurante extends JFrame
         this.ventanaPrincipal = principal;
         setLayout( new BorderLayout( ) );
 
+        setTitle( "Nuevo restaurante" );
+
         // Agrega el panel donde va a estar el mapa
-        // TODO completar
+        panelMapa = new PanelMapaAgregar( );
+        add( panelMapa, BorderLayout.CENTER );
 
         // Agrega en el sur un panel para los detalles del restaurante y para los botones
-        // TODO completar
+        JPanel panelSur = new JPanel( new BorderLayout( ) );
+        panelDetalles = new PanelEditarRestaurante( );
+        panelSur.add( panelDetalles, BorderLayout.CENTER );
+        panelBotones = new PanelBotonesAgregar( this );
+        panelSur.add( panelBotones, BorderLayout.SOUTH );
+        add( panelSur, BorderLayout.SOUTH );
 
         // Termina de configurar la ventana
         pack( );
@@ -53,7 +62,18 @@ public class VentanaAgregarRestaurante extends JFrame
      */
     public void agregarRestaurante( )
     {
-        // TODO completar
+        String nombre = panelDetalles.getNombre( );
+        if( nombre.isEmpty( ) )
+        {
+            JOptionPane.showMessageDialog( this, "Debe ingresar el nombre del restaurante", "Error", JOptionPane.ERROR_MESSAGE );
+            return;
+        }
+        int calificacion = panelDetalles.getCalificacion( );
+        boolean visitado = panelDetalles.getVisitado( );
+        int[] coordenadas = panelMapa.getCoordenadas( );
+
+        ventanaPrincipal.agregarRestaurante( nombre, calificacion, coordenadas[ 0 ], coordenadas[ 1 ], visitado );
+        dispose( );
     }
 
     /**
